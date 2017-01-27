@@ -1,1 +1,3 @@
 select ordNumber, totalUSD from Orders;
+
+select name, city from Agents where name = 'Smith';
