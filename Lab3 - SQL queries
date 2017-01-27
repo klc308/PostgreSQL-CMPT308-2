@@ -8,3 +8,5 @@ select name, city from Customers where city = 'Duluth';
 
 select name from Agents where city not in ('New York', 'Duluth');
 
+select * from Products where (city not in ('Dallas', 'Duluth') and priceUSD >= 1.00);
+
