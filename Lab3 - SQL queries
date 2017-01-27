@@ -1,1 +1,1 @@
-select ordNumber, totalUSD from Order;
+select ordNumber, totalUSD from Orders;
