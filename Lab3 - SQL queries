@@ -12,4 +12,6 @@ select * from Products where (city not in ('Dallas', 'Duluth') and priceUSD >= 1
 
 select * from Orders where month in ('Feb', 'May');
 
+select * from Orders where month = 'Feb' and totalUSD >= 600;
+
 
