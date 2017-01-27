@@ -10,3 +10,6 @@ select name from Agents where city not in ('New York', 'Duluth');
 
 select * from Products where (city not in ('Dallas', 'Duluth') and priceUSD >= 1.00);
 
+select * from Orders where month in ('Feb', 'May');
+
+
