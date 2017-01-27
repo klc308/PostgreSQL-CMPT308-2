@@ -6,4 +6,5 @@ select pid, name, priceUSD from Products where quantity > 200100;
 
 select name, city from Customers where city = 'Duluth';
 
+select name from Agents where city not in ('New York', 'Duluth');
 
