@@ -1,3 +1,6 @@
 select ordNumber, totalUSD from Orders;
 
 select name, city from Agents where name = 'Smith';
+
+select pid, name, priceUSD from Products where quantity > 200100;
+
