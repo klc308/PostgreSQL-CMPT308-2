@@ -1,4 +1,4 @@
-*****Kathy Coomes - 1/29/17 - Lab3 - SQL queries- submission*****
+----- Kathy Coomes - 1/29/17 - Lab3 - SQL queries- submission -----
 
 select ordNumber, totalUSD from Orders;
 
