@@ -34,3 +34,12 @@ where cid in
          where aid = 'a01'
          )
      );
+     
+-- Number Four 
+select cid
+from orders
+where pid = 'p01'
+	intersect
+select cid
+from orders
+where pid = 'p07';
