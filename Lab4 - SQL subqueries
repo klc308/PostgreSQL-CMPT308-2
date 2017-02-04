@@ -58,3 +58,17 @@ where pid in
      )
 order by pid desc;
 
+--Number Six
+select name, discount, 
+			 city
+from customers
+where cid in
+	(select cid 
+     from orders
+     where aid in
+     	(select aid
+         from agents
+         where city in ('Tokyo', 'New York')
+         )
+     );
+
