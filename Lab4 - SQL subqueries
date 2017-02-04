@@ -1,0 +1,8 @@
+-- Kathy Coomes - 1/31/17 - Lab 4 - SQL subqueries
+
+-- Number One
+select city 
+from agents
+where aid in
+	(select aid from orders
+     where cid = 'c006');
