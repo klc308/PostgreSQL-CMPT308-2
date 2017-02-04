@@ -43,3 +43,18 @@ where pid = 'p01'
 select cid
 from orders
 where pid = 'p07';
+
+-- Number Five
+select pid 
+from products
+where pid in
+	(select pid 
+	from orders
+	where cid not in
+		(select cid
+   		from orders
+   		  where aid = 'a08'
+    	 )
+     )
+order by pid desc;
+
