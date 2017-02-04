@@ -72,4 +72,13 @@ where cid in
          where city in ('Tokyo', 'New York')
          )
      );
+     
+--Number Seven
+select *
+from customers
+where discount in
+	(select discount
+     from customers
+     where city in ('Duluth', 'London')
+     );
 
