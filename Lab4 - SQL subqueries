@@ -23,7 +23,7 @@ order by pid desc;
 
 -- Number Three
 select distinct cid, 
-				name
+                name
 from customers
 where cid in
 	(select cid
@@ -59,8 +59,9 @@ where pid in
 order by pid desc;
 
 --Number Six
-select name, discount, 
-			 city
+select name, 
+       discount, 
+       city
 from customers
 where cid in
 	(select cid 
