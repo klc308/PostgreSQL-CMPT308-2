@@ -1,0 +1,18 @@
+
+-- Number 3 - two ways 
+-- not sure if it was supposed to be just the subquery or a join with a subquery
+
+select customers.name
+from customers 
+where customers.cid not in
+    (select orders.cid
+     from orders
+     );    
+     
+select customers.name
+from customers left outer join orders on customers.cid = orders.cid
+where customers.cid not in
+    (select orders.cid
+     from orders
+     );
+     
