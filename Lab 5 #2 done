@@ -1,0 +1,7 @@
+Lab5 #2 - Kathy Coomes - 02/16/17
+
+select distinct o1.pid      
+from orders o1 inner join orders o2 on o1.aid = o2.aid
+               inner join customers c on o2.cid = c.cid
+where c.city = 'Kyoto'               
+order by o1.pid desc;
