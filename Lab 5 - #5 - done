@@ -1,0 +1,10 @@
+-- Lab 5 - Number 5 - Kathy Coomes - 02/16/17
+
+select distinct c.name as "customer",
+                a.name as "agent"
+from orders o inner join customers c on o.cid = c.cid
+              inner join agents a on o.aid = a.aid
+where c.city = a.city
+order by c.name;
+  
+  
