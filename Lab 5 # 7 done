@@ -1,0 +1,24 @@
+-- Lab 5 - Number 7 - Kathy Coomes - 02/16/17
+-- per Tien no specific method was specified
+
+select distinct c.name,
+                c.city
+from customers c
+where c.city =
+    (select p.city
+     from products p
+     group by p.city
+     order by count(p.city)
+     limit 1
+     )
+order by c.name asc;
+
+
+
+
+
+
+
+
+
+
