@@ -25,4 +25,13 @@ where priceUSD >
 order by name desc;
 
 -- ------------------------------------
--- Number 3 - 
+-- Number 3 - 2/18/17/17
+
+select c.name,
+       o.pid,
+       o.totalUSD
+from orders o inner join customers c on o.cid = c.cid
+order by o.totalUSD asc;
+
+-- -----------------------------------------
+
