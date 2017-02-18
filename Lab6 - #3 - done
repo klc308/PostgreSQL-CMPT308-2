@@ -1,0 +1,7 @@
+-- Lab 6 - Number 3 - Kathy Coomes - 2/17/17
+
+select c.name,
+       o.pid,
+       o.totalUSD
+from orders o inner join customers c on o.cid = c.cid
+order by o.totalUSD asc;
