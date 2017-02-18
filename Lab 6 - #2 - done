@@ -1,0 +1,8 @@
+-- Lab 6 - Number 2- Kathy Coomes - 2/17/17
+
+select name
+from products
+where priceUSD >
+    (select avg(priceUSD)
+     from products)
+order by name desc;
