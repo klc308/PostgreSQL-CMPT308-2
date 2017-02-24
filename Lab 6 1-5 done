@@ -1,0 +1,70 @@
+--Lab 6 - Kathy Coomes - 2/17/17 - 2/23/17
+
+-- 1. (2/17/17) 
+-- Display the name and city of customers who live in any city that makes the most
+-- different kinds of products. (There are two cities that make the most different
+-- products. Return the name and city of customers from either one of those.)
+
+select c.name,
+       c.city
+from customers c
+where c.city =
+   (select p.city
+    from products p
+    group by p.city
+    order by count(p.city) desc
+    limit 1
+    )
+limit 1;
+
+-- ---------------------------------------------------------------------------------------
+-- 2. (2/17/17) 
+-- Display the names of products whose priceUSD is strictly above the average priceUSD,
+-- in reverse-alphabetical order.
+
+select name
+from products
+where priceUSD >
+    (select avg(priceUSD)
+    from products)
+order by name desc;
+
+-- ---------------------------------------------------------------------------------------
+-- 3. (2/18/17) 
+-- Display the customer name, pid ordered, and the total for all orders, sorted by total
+-- from low to high.
+
+select c.name,
+       o.pid,
+       o.totalUSD
+from orders o inner join customers c on o.cid = c.cid
+order by o.totalUSD asc;
+
+-- ---------------------------------------------------------------------------------------
+-- 4. (2/23/17)
+-- Display all customer names (in alphabetical order) and their total ordered, and
+-- nothing more. Use coalesce to avoid showing NULLs.
+
+select coalesce(c.name, 'N/A'),
+       coalesce(sum(o.totalUSD), 0) as "custTotalUSD"
+from customers c left outer join orders o on c.cid = o.cid
+group by c.name, 
+         o.cid
+order by c.name;
+
+-- ---------------------------------------------------------------------------------------
+-- 5. (2/23/17) 
+-- Display the names of all customers who bought products from agents based in
+-- Newark along with the names of the products they ordered, and the names of the
+-- agents who sold it to them.
+
+select c.name,
+       p.name,
+       a.name
+from customers c inner join orders o on c.cid = o.cid
+                 inner join products p on o.pid = p.pid
+                 inner join agents a on o.aid = a.aid
+where a.city = 'Newark';
+
+
+
