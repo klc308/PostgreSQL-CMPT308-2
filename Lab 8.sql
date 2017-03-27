@@ -104,7 +104,7 @@ CREATE TABLE MovieDirectors(
 INSERT INTO People (peopleID, firstName, lastName, street, city, stateProvince, country, zip )
 	VALUES('p001','Sean', 'Connery', '10 Waterloo Place', 'Edinburgh', 'Scotland', 'United Kingdom', 'EH1 3BG'),
 		  ('p002','Roger', 'Moore', '23 Trafalgar Square', 'London', 'England', 'United Kingdon', 'WC2N 5DU'),		  
-		 ('p300', 'Guy', 'Hamilton', '662-Placa de Cort', 'Majorca', 'Balearic Islands', 'Spain', '07001'),
+		  ('p300', 'Guy', 'Hamilton', '662-Placa de Cort', 'Majorca', 'Balearic Islands', 'Spain', '07001'),
 		  ('p301', 'Terence', 'Young', '768 Rue Jean de Riouffe', 'Cannes', 'Alpes-Maritimes', 'France', '06400'),
 		  ('p302', 'Lewis', 'Gilbert', '16 Wimbledon Park', 'London', 'England', 'United Kingdom', 'WC2N 5DU'),
 		  ('p303', 'John', 'Glen', '77 Thames Avenue', 'Sunbury-on-Thames', 'England', 'United Kingdom', 'TW16 7AR'),
@@ -112,7 +112,7 @@ INSERT INTO People (peopleID, firstName, lastName, street, city, stateProvince, 
 		  ('p305', 'Matthew', 'Vaughn', '34 Nottinghill Road', 'London', 'England', 'United Kingdom', 'WC2N'),
 		  ('p005', 'Michael', 'Fassbender', '78 Krieg Tower', 'Heidelberg', 'Baden-Wurtemberg', 'West Germany', '79110'),
 		  ('p006', 'Tom', 'Hardy', '8769 Queen Caroline Street', 'Hammersmith', 'England', 'United Kingdom', 'W6 9QH'),
-		  ('p007', 'Nicholas', 'Hoult', '99 London Road', 'Wokingham', 'Berkshire', 'England', 'United Kingdom', 'RG40 1RD'),
+		  ('p007', 'Nicholas', 'Hoult', '99 London Road', 'Wokingham', 'England', 'United Kingdom', 'RG40 1RD'),
 		  ('p306', 'Christopher', 'Nolan', '456 Crescent Round', 'London', 'England', 'United Kingdom', 'WC2N'),
 		  ('p008', 'Tom', 'Hiddleston', '987 Golding Drive', 'Westminster', 'England', 'United Kingdom', 'SW1E 6QW'),
 		  ('p009', 'Henry', 'Cavill', '678 Island Drive', 'St. Helier', 'Jersey', 'Channel Islands', 'JE2 9TP'),
@@ -125,33 +125,37 @@ INSERT INTO Spouses (peopleID, spouseID, firstName, lastName, spouseNum)
 		  ('p300', 's003', 'Naomi', 'Chance', 1),
 		  ('p300', 's004', 'Kerima', 'Hamilton', 2), 
 		  ('p301', 's005', 'Sabine', 'Sun',1),
-          ('p301', 's010', 'Dorothea', 'Bennett', 2),
+		  ('p301', 's009', 'Dorothea', 'Bennett', 2),
 		  ('p302', 's011', 'Hylda', 'Tafler', 1),
-		  ('p004', 's006', 'Claudia', 'Schiffer', 1),
+		  ('p305', 's006', 'Claudia', 'Schiffer', 1),
 		  ('p306', 's007', 'Emma', 'Thompson', 1),
 		  ('p307', 's008', 'Kai', 'Cole', 1),
-		  ('p308', 's009', 'Denise', 'Snyder', 1),
-		  ('p309', 's010', 'Deborah', 'Snyder', 2);	
+		  ('p308', 's012', 'Denise', 'Snyder', 1),
+		  ('p308', 's010', 'Deborah', 'Snyder', 2),
+		  ('p002', 's016', 'doorn', 'van Steyn', 1),
+		  ('p002', 's013', 'Dorothy', 'Squires', 2),
+		  ('p002', 's014', 'Luisa', 'Mattioli', 3),
+		  ('p002', 's015', 'Kristina', 'Tholstrup', 4);	
 
 INSERT INTO Movies (movieID, title, yearReleased, MPAAnum, domesticBoxOfficeSalesUSD, foreignBoxOfficeSalesUSD, dvdBluRaySalesUSD)
-	VALUES('m001', 'Dr. No', 1962, 20322, 16067035, 43500000, NULL),
-		  ('m002', 'From Russia With Love', 1963, 20568, 24796765, 54100000, NULL),
-		  ('m003', 'Moonraker', 1979, 25614, 70308099, 140000000, NULL),
-          ('m004', 'Octopussy', 1983, 27025, 67893619, 119600000, NULL),
-		  ('m005', 'Goldfinger', 1964, 20808, 51081062, 73800000, NULL),
-		  ('m006', 'Thunderball', 1965, NULL, 63595658, 77600000, NULL),
-		  ('m007', 'You Only Live Twice', 1967, 21666, 43084787, 68500000, NULL),
-		  ('m008', 'Diamonds Are Forever', 1971, 23067, 43819547, 72200000, NULL),
-		  ('m009', 'Never Say Never Again', 1983, 27151, 55432841, 104600000, NULL),
-		  ('m010', 'X-Men:  First Class', 2011, 46663, 146408305, 207215819, NULL),
-		  ('m011', 'Inception', 2011, 46101, 292576195, 825532764, NULL),
-		  ('m012', 'The Avengers', 2012, 47486, 623357910, 86200000, NULL),
-		  ('m013', 'Man of Steel', 2013, 48169, 291045548, 377000000, NULL);		  
+	VALUES('m001', 'Dr. No', 1962, 20322, 16067035, 43500000, 57899749),
+		  ('m002', 'From Russia With Love', 1963, 20568, 24796765, 54100000, 58899749),
+		  ('m003', 'Moonraker', 1979, 25614, 70308099, 140000000, 59899749),
+          ('m004', 'Octopussy', 1983, 27025, 67893619, 119600000, 60899749),
+		  ('m005', 'Goldfinger', 1964, 20808, 51081062, 73800000, 61899749),
+		  ('m006', 'Thunderball', 1965, NULL, 63595658, 77600000, 62899749),
+		  ('m007', 'You Only Live Twice', 1967, 21666, 43084787, 68500000, 63899749),
+		  ('m008', 'Diamonds Are Forever', 1971, 23067, 43819547, 72200000, 64899749),
+		  ('m009', 'Never Say Never Again', 1983, 27151, 55432841, 104600000, 65899749),
+		  ('m010', 'X-Men:  First Class', 2011, 46663, 146408305, 207215819, 66899749),
+		  ('m011', 'Inception', 2011, 46101, 292576195, 825532764, 161049602),
+		  ('m012', 'The Avengers', 2012, 47486, 623357910, 86200000, 234002894),
+		  ('m013', 'Man of Steel', 2013, 48169, 291045548, 377000000, 110592670);		  
 		  
 INSERT INTO Actors (actorID, peopleID, birthDate, hairColor, eyeColor, heightInches, weightPounds, favColor, sagDate)
 	VALUES('a001', 'p001', '08-25-1930', 'grey', 'dark brown', 74, 164, 'green', '01-01-1962'),
 		  ('a002', 'p002', '10-14-1927', 'grey', 'dark brown', 73, 163, 'blue', '01-01-1956'),
-		  ('a003', 'p003', '02-02-1977', 'light brown', 'blue', 72, 168, 'black', '01-01-2009'),
+		  ('a003', 'p005', '02-02-1977', 'light brown', 'blue', 72, 168, 'black', '01-01-2009'),
 		  ('a006', 'p006', '09-15-1977', 'brown', 'green', 70, 189, 'black', '01-01-2008'),
 		  ('a007', 'p007', '12-07-1989', 'dark brown', 'blue', 75, 185, 'blue', '01-01-2007'),
 		  ('a008', 'p008', '02-09-1981', 'brown', 'blue', 74, 182, 'yellow', '01-01-2006'),
@@ -164,7 +168,7 @@ INSERT INTO FilmSchools (filmSchoolID, name)
 		  ('f004', 'United States Information Service'),
 		  ('f005', 'University College of London');		  
 
-INSERT INTO Directors (directorID, peopleID, filmSchool,ID, dgaDate, favLensMaker )
+INSERT INTO Directors (directorID, peopleID, filmSchoolID, dgaDate, favLensMaker )
 	VALUES('d001', 'p300', 'f001', '01-01-1963', 'Panavision'),
 	      ('d002', 'p301', 'f001', '01-01-1962', 'CinemaScope'),
 		  ('d003', 'p302', 'f002', '01-01-1979', 'Kodak'),
