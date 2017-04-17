@@ -1,0 +1,451 @@
+-- Final Project for CMPT 308 (Alan Laboiseur) - Kathy Coomes
+-- Tables and data for:  Arrangements, ArrangementItemsList, and 
+--                       ArrangementItems - 04/15/17
+-- Stored Procedure to obtain a list of items for each arrangement - 04/15/17
+-- Tables and data for:  People, Companies, ContactPeople, Staff, and 
+--                       Addresses - 4/15/17
+-- Views for CompanyInfo, StaffInfo - 04/16/17
+-- Tables and data for: Customers - 04/16/17
+-- View for CustomerInfo - 4/16/17
+
+
+-- -------------------------------------------------------------
+-- ----------------- CREATE TABLES -----------------------------
+-- -------------------------------------------------------------
+
+-- -------------------------------------------------------------
+-- People
+-- -------------------------------------------------------------
+Create table People(
+	peopleId	text	not null	unique,
+	firstName	text	not null,
+	lastName	text	not null,
+	phone		text,
+	phoneType	text,
+	email		text,
+   primary key(peopleId)
+);
+	
+-- -------------------------------------------------------------
+-- Companies
+-- -------------------------------------------------------------
+Create table Companies(
+	companyId		text	not null	unique,
+	companyName		text	not null,
+   primary key(companyId)
+);
+
+-- -------------------------------------------------------------
+-- ContactPeople 
+-- -------------------------------------------------------------
+Create table ContactPeople (
+	peopleId	text	not null	references People(peopleId),
+	companyId	text	not null	references Companies(companyId),
+   primary key(peopleId)
+);
+
+-- -------------------------------------------------------------
+-- Staff 
+-- -------------------------------------------------------------
+Create table Staff (
+	peopleId	text	not null	references People(peopleId),
+	dateHired	text	not null,
+	hiredPosition	text,
+	dateLeft	text,
+	position	text	not null,
+	cellPhone	text,
+   primary key(peopleId)
+);
+
+-- -------------------------------------------------------------
+-- Customers
+-- -------------------------------------------------------------
+Create table Customers (
+	peopleId	text	not null	references People(peopleId),
+   primary key(peopleId)
+);
+
+-- -------------------------------------------------------------
+-- Addresses
+-- -------------------------------------------------------------
+Create table Addresses (
+	peopleId	text	not null	references People(peopleId),
+	street1		text,
+	street2		text,
+	city		text,
+	state		text,
+	zip			text,
+   primary key(peopleId)
+);
+
+-- -------------------------------------------------------------
+-- Products
+-- -------------------------------------------------------------
+Create table Products (
+	companyProductId	text	not null,	
+	companyId			text	not null	references Companies(companyId),
+	productType			text,
+	productName	        text,
+	productSize			text,
+	productColor		text,
+	productQty			int,
+	productCostTotalUSD		int,
+	productDesc			text,
+   primary key(companyProductId, companyId)
+);
+
+-- -------------------------------------------------------------
+-- Arrangements 
+-- -------------------------------------------------------------
+Create table Arrangements(
+	arrId		text	not null	unique,
+	arrName		text	not null,
+	costUSD		int		not null,
+	category	text	not null,
+   primary key(arrId)
+);
+
+-- -------------------------------------------------------------
+-- Arrangementitems
+-- -------------------------------------------------------------
+Create table ArrangementItems(
+	itemId		text	unique	not null,
+	itemName		text			not null,	
+   primary key(ItemId)
+);
+
+-- -------------------------------------------------------------
+-- ArrangementItemsList 
+-- -------------------------------------------------------------
+Create table ArrangementItemsList(
+	arrId		text	not null	references Arrangements(arrId),
+	itemID		text	not null	references ArrangementItems(itemId),
+	itemQty		int		not null,
+   primary key(arrId, itemId)
+);
+
+-- -------------------------------------------------------------
+-- ----------------- INSERT SAMPLE DATA ------------------------
+-- -------------------------------------------------------------
+
+Insert into People(peopleId, firstName, lastName, phone, phoneType, email)
+	Values('people001', 'John', 'Dolan', '800-827-3665', 'work', 'floralsupply.com'),
+	      ('people002', 'Michael', 'Growski', '800-773-2554', 'work', 
+		                'directfloral.com'),
+		  ('people003', 'Jessica', 'Murray', '877-701-7673 - ext 5465', 'work', 
+		                'globalrose.com'),
+		  ('people004', 'Jon', 'Sitzer', '845-555-5555', 'home', 
+		                'jon.sitzer34@yahoo.com'),
+		  ('people005', 'Marisa', 'Sumter', '845-666-6666', 'cell', NULL),
+		  ('people006', 'Mandy', 'Mishra', '845-777-7777', 'home', 
+		                'mmishra456@gmail.com'),
+		  ('people007', 'Gary', 'Carney', '845-222-2222', 'home', 
+		                'gary.carney@net10.com'),
+		  ('people008', 'Janice', 'Jones', '845-111-1111', 'home',
+		                'janicejones58@yahoo.com'),
+		  ('people009', 'Jane', 'Doe', '845-555-2323', 'cell', 'Jd2456@gmail.com'),
+	      ('people010', 'Mary', 'Marist', '914-555-1212', 'cell', 
+		                'mmarist6486@marist.edu'),
+		  ('people011', 'Christopher', 'Collins', '845-555-3434', 'home',  
+		                'ccollins@hotmail.com'),
+		  ('people012', 'Candie', 'Kane', '846-555-4545', 'home', 
+		                'candie.kane22@outlook.com');
+
+Insert into Companies(companyId, companyName)
+	Values ('company001', 'Floral Supply Wholesale'),
+	       ('company002', 'DirectFloral.com'),
+		   ('company003', 'GlobalRose.com');
+		  
+Insert into ContactPeople(peopleId, companyId)
+	Values('people001', 'company001'),
+	      ('people002', 'company002'),
+		  ('people003', 'company003');
+		  
+Insert into Staff(peopleId, dateHired, hiredPosition, dateLeft, position, cellPhone)
+	Values('people004', '05/12/2007', 'sales clerk', NULL, 'manager', 
+	                    '914-555-5555'),
+		  ('people005', '02/23/2015', 'sales clerk', NULL, 'sales clerk', 
+		                '914-666-6666'),
+		  ('people006', '01/01/2016', 'sales clerk', NULL, 'arranger', 
+		                '914-777-7777'),
+		  ('people007', '05/12/2007', 'owner-arranger', NULL, 'owner-arranger', 
+		                '914-222-2222'),
+		  ('people008', '05/12/2007', 'sales clerk', '07/30/2007', 'sales clerk', 
+		                '914-111-1111');
+
+Insert into Customers(peopleId)
+	Values('people009'),
+	      ('people010'),
+		  ('people011'),
+		  ('people012');
+		  
+Insert into Addresses(peopleId, street1, street2, city, state, zip)
+	Values('people001', NULL, '15 Applewood Drive', 'Fruit Heights', 'Utah', 
+	                    '84037'),
+	      ('people002', NULL, '760 Killian Road', 'Akron', 'Ohio', '44319'),
+		  ('people003', NULL, '7225 NW 25th Street','Miami', 'Florida', '33122'),
+		  ('people004', NULL, '456 Mantle Circle', 'Poughkeepsie', 'New York', 
+		                '12601'),
+		  ('people005', NULL, '23 Alamo Road', 'Rhinebeck', 'New York', 
+		                '12572-1234'),
+		  ('people006', 'Royal Crest Apartments', '22B Royal Crest Place',
+		                'Hyde Park', 'New York', '12538-2256'),
+		  ('people007', 'Park Manor Apartments', '4568 Springwood Drive', 
+		                'Hyde Park', 'New York', '12538-4568'),
+		  ('people008', NULL, '45 Zachary Way', 'Poughkeepsie', 'New York', 
+		                '12602-4545'),
+		  ('people009', 'Cherry Condominiums', '21 Cherry Hill Road', 'Red Hook', 
+		                'New York', '12571'),
+	      ('people010', NULL, '62 Hilltop Road', 'Rhinecliff', 'New York', '12573'),
+		  ('people011', NULL, '86B Church Street', 'Poughkeepsie', 'New York', 
+		                '12602'),
+		  ('people012', NULL, '91-28B Main Street', 'Beacon', 'New York', 
+		                '12508-1928');
+		  
+Insert into Products(companyProductId, companyId, productType, productName, 
+                     productSize, productColor, productQty, productCostTotalUSD,
+					 productDesc)
+	Values('G10026B2', 'company003', 'flower', 'rose', 'long stem', 'lavender', 12,
+                    	7, NULL),
+	      ('C56736', 'company001', 'container', 'country metal pail', 
+		                '6 inches tall', 'off white', 5, 12, NULL),
+		  ('N674DDA', 'company002', 'flower', 'alstroemeria', NULL, 'white', 6,
+                		4.50, NULL),
+		  ('N673GST', 'company002', 'flower', 'statice', NULL, 'white',  6, 3,
+            		    NULL),
+		  ('N675GHF', 'company002', 'flower', 'daisy', NULL, 'yellow', 12, 12, NULL),
+		  ('S97854', 'company001',  'other', 'floral foam', 
+		                '9in long x 4.5in wide x 3in high', 'green', 48, 25, 
+						'dry brick'),
+		  ('S97657', 'company001', 'other', 'floral tape', '110yds long x 1in wide',
+                        'green', 6, 6.75, 'rolls'),
+		  ('C56765', 'company001', 'container', 'its a boy wagon', 
+		                '9in long x 4in wide x 4in high', 'red', 1, 9.99, 
+		                'good for plant or arrangement'),
+		  ('C56766', 'company001', 'container', 'its a girl wagon', 
+		                '9in long x 4in wide x 4in high', 'red', 1, 9.99, 
+		                'good for plant or arrangement'),		
+		  ('G10027C3', 'company003', 'flower', 'rose', 'spray', 'yellow', 8, 15, 
+		                '3 - 5 roses on each spray'),
+		  ('N67454C3', 'company003', 'flower', 'gerbera', 'mini', 'red', 12, 6, 
+		                NULL),
+		  ('N67454G5', 'company003', 'flower', 'aster', NULL, 'red', 6, 9, NULL),
+		  ('N675GHG', 'company002', 'flower', 'daisy', NULL, 'white', 12, 12, NULL),
+		  ('G87463', 'company001', 'greenery', 'leather leaf', NULL, 'green', 100, 
+		                76, 'stems'),
+		  ('G87465', 'company001', 'greenery', 'huckleberry', NULL, 'green', 1, 
+		                15.75, 'bunch'),
+		  ('N697BHG', 'company002', 'flower', 'mum', 'button', 'white', 4, 3, 
+		                'spray with 4 - 5 buttons'),
+		  ('N697BHR', 'company002', 'flower', 'mum', 'button', 'green', 4, 3, 
+		                'spray with 4 - 5 buttons'),
+		  ('G10026BG', 'company003', 'flower', 'rose', NULL, 'orange', 4, 10, NULL),
+		  ('C78457', 'company001', 'container', 'vase', '7in tall', 'cobalt blue', 
+		                4, 12, NULL),
+		  ('C97485', 'company001', 'balloon', 'balloon', 'mylar', 'silver and mixed',
+                        25, 12.5, 'colorful HappyBirthday'),
+		  ('F87467G5', 'company003', 'flower', 'carnation', NULL, 'red', 12, 6, 
+		                NULL),
+		  ('N986GKB', 'company002', 'flower', 'soldago', NULL, 'white', 1, 3, 
+		                'bunch'),
+		  ('C86397', 'company001', 'container', 'vase', '5in tall', 
+		                'clear with lady bugs', 5, 15, NULL);		  
+		  
+Insert into Arrangements(arrId, arrName, costUSD, category)
+	Values('arr001', 'Blooming Pail', 50, 'Spring'),
+		  ('arr002', 'Wow Wagon - boy', 43, 'baby boy'),
+		  ('arr003', 'Wow Wagon - girl', 43, 'baby girl'),
+		  ('arr004', 'Fly Away Bouquet', 53, 'birthday'),
+		  ('arr005', 'lovely Ladybug Bouquet', 40, 'general');
+		  
+Insert into ArrangementItems(itemId, itemName)
+	Values('item001', 'Country Metal Pail'),
+	      ('item002', 'Lavendar Roses'),
+		  ('item003', 'Alstroemeria'),
+		  ('item004', 'Statice'),
+		  ('item005', 'Yellow Daisies'),
+		  ('item006', 'Floral Foam'),
+		  ('item007', 'Floral tape'),
+		  ('item008', 'Its a Boy Red Wagon'),
+		  ('item009', 'Yellow Spray Roses'),
+		  ('item010', 'Red Mini Gerbera'),
+		  ('item011', 'Asters'),
+		  ('item012', 'White Daisies'),
+		  ('item013', 'White Button Mums'),
+		  ('item014', 'Soldago'),
+		  ('item015', 'Greenery'),
+		  ('item016', 'Its a Girl Red Wagon'),
+		  ('item017', 'Cobalt blue vase - 8 inch'),
+		  ('item018', 'Mylar Happy Birthday balloon'),
+		  ('item019', 'Orange Roses'),
+		  ('item020', 'Red Carnations'),
+		  ('item021', 'Clear vase with ladybugs - 7inch'),
+		  ('item022', 'Green button mums'),
+		  ('item023', 'Huckleberry greens');
+		  
+Insert into ArrangementItemsList(arrId, itemId, itemQty)
+	Values('arr001', 'item001', 1),
+	      ('arr001', 'item002', 8),
+		  ('arr001', 'item003', 5),
+		  ('arr001', 'item004', 6),
+		  ('arr001', 'item005', 5),
+	      ('arr001', 'item006', 1),
+		  ('arr001', 'item007', 1),
+		  ('arr001', 'item015', 4),
+		  ('arr002', 'item005', 3),
+	      ('arr002', 'item006', 1),
+		  ('arr002', 'item007', 1),
+		  ('arr002', 'item016', 1),
+		  ('arr002', 'item009', 2),
+	      ('arr002', 'item010', 3),
+		  ('arr002', 'item011', 2),
+		  ('arr002', 'item012', 3),
+		  ('arr002', 'item013', 2),
+	      ('arr002', 'item014', 4),
+		  ('arr002', 'item015', 4),
+		  ('arr003', 'item005', 3),
+	      ('arr003', 'item006', 1),
+		  ('arr003', 'item007', 1),
+		  ('arr003', 'item008', 1),
+		  ('arr003', 'item009', 2),
+	      ('arr003', 'item010', 3),
+		  ('arr003', 'item011', 2),
+		  ('arr003', 'item012', 3),
+		  ('arr003', 'item013', 2),
+	      ('arr003', 'item014', 4),
+		  ('arr003', 'item015', 4),
+		  ('arr004', 'item017', 1),
+		  ('arr004', 'item018', 1),
+		  ('arr004', 'item019', 6),
+		  ('arr004', 'item003', 6),
+		  ('arr004', 'item020', 4),
+		  ('arr004', 'item005', 6),
+		  ('arr004', 'item004', 5),
+		  ('arr004', 'item015', 4),
+		  ('arr004', 'item006', 1),
+		  ('arr004', 'item007', 1),
+		  ('arr005', 'item021', 1),
+		  ('arr005', 'item010', 4),
+		  ('arr005', 'item003', 5),
+		  ('arr005', 'item020', 2),
+		  ('arr005', 'item012', 6),
+		  ('arr005', 'item022', 2),
+		  ('arr005', 'item023', 5);
+		  
+-- -------------------------------------------------------------
+-- ----------------- QUERIES ------------------------
+-- -------------------------------------------------------------
+
+-- -------------------------------------------------------------
+-- Query to get list of items needed for an arrangment
+-- -------------------------------------------------------------	  
+Select a.arrId, p.itemId, p.itemName, apl.itemQty
+from Arrangements a inner join ArrangementItemsList apl on a.arrId = apl.arrId
+                    inner join ArrangementItems p on apl.itemId = p.itemId
+where a.arrId = 'arr001';
+-- -------------------------------------------------------------
+-- above select as a stored procedure - 
+-- enter arrId and get a list of items and quantities of each for it
+-- -------------------------------------------------------------
+
+create or replace function GetArrListofItems(text, refcursor) returns refcursor as
+$$
+declare
+	arrIdEntered text		:= $1;
+	resultset	 refcursor	:= $2;
+begin
+	open resultset for
+	  select a.arrId, p.itemId, p.itemName, apl.itemQty
+      from Arrangements a inner join ArrangementItemsList apl on a.arrId = apl.arrId
+                            inner join ArrangementItems p on apl.itemId = p.itemId
+	  where a.arrId = arrIdEntered;
+	return resultset;
+end;
+$$
+language plpgsql;
+
+select GetArrListofItems('arr002', 'results');
+fetch all from results;
+
+-- -------------------------------------------------------------
+-- --------------------- View to obtain Company Information
+-- -------------------------------------------------------------
+
+create view CompanyInfo
+as
+select c.companyId, c.companyName, cp.peopleId, p.firstName, p.lastName, p.phone,
+	   p.phoneType, p.email, a.street1, a.street2, a.city, a.state, a.zip
+from Companies c, 
+     ContactPeople cp,
+	 People p,
+	 Addresses a
+where c.companyId = cp.companyId and
+      cp.peopleId = p.peopleId and
+	  p.peopleId = a.peopleId;
+
+select * from CompanyInfo;
+      
+select companyId, companyName, firstName, LastName, phone, email
+from CompanyInfo
+where companyName Like '%Rose%';
+	  
+-- -------------------------------------------------------------
+-- --------------------- View to obtain Staff Information
+-- -------------------------------------------------------------
+
+create view StaffInfo
+as
+select s.peopleId, s.dateHired, s.hiredPosition, s.dateLeft, s.position, s.cellPhone,
+       p.firstName, p.lastName, p.phone, p.phoneType, p.email, a.street1, a.street2,
+	   a.city, a.state, a.zip
+from Staff s,
+	 People p,
+	 Addresses a
+where s.peopleId = p.peopleId and
+	  p.peopleId = a.peopleId;
+
+select * from StaffInfo;
+ 
+-- list staff info for first names that have the letters 'ma' in it
+select firstName, LastName, cellPhone, phone, phoneType, email
+from StaffInfo
+where firstName Like 'Ma%';
+
+-- list staff who are still here
+select firstName, LastName, dateHired, hiredPosition, position
+from StaffInfo
+where dateLeft is Null;
+
+-- list staff who are gone
+select firstName, LastName, dateHired, hiredPosition, position
+from StaffInfo
+where dateLeft is not Null;
+
+-- -------------------------------------------------------------
+-- --------------------- View to obtain Customer Information
+-- -------------------------------------------------------------
+
+create view CustomerInfo
+as
+select c.peopleId, p.firstName, p.lastName, p.phone, p.phoneType, p.email, 
+       a.street1, a.street2, a.city, a.state, a.zip
+from Customers c,
+	 People p,
+	 Addresses a
+where c.peopleId = p.peopleId and
+	  p.peopleId = a.peopleId;
+
+select * from CustomerInfo;
+ 
+-- list customer info for cities that start with 'R'
+select firstName, LastName, cellPhone, phone, phoneType, email, city
+from CustomerInfo
+where city Like 'R%';
+
+	  
+	  	  
+-- -------------------------------------------------------------		  
+-- drop table if exists people, companies, contactPeople, staff, customers cascade 
+-- drop table if exists addresses, products cascade
+-- drop table if exists arrangements, arrangementItems, arrangementItemsList cascade
+-- -------------------------------------------------------------	
